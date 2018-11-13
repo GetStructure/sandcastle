@@ -2,7 +2,7 @@ var equal = require('assert').equal,
   notEqual = require('assert').notEqual,
   Pool = require('../lib').Pool;
 
-describe('Pool', function () {
+describe.only('Pool', function () {
   it('should run multiple scripts', function (finished) {
     var pool = new Pool({numberOfInstances: 5});
 

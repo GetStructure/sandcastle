@@ -15,7 +15,9 @@ const mode = argv._.shift();
 switch (mode) {
   case 'sandbox':
     (new sandcastle.Sandbox({
-      socket: argv.socket
+      socket: argv.socket,
+      memoryLimit: argv.memoryLimit,
+      mmapPath: argv.mmapPath
     })).start();
     break;
   default:
