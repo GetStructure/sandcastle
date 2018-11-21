@@ -27,6 +27,34 @@ describe('Pool', function () {
     }
   });
 
+  it('should store multiple script return values', function (finished) {
+    var pool = new Pool({numberOfInstances: 5});
+    var scriptsExited = 0;
+    var scriptsRead = [];
+
+    for (var i = 0; i < 6; ++i) {
+      var script = pool.createScript("\
+          exports.main = function() {\n\
+            exit(testGlobal);\n\
+          }\n\
+        "
+      );
+      script.on('exit', function (err, result) {
+        scriptsRead.push(result)
+        scriptsExited++;
+        if (scriptsExited === 5 || result === true) {
+          pool.kill();
+          // the order and exact values can not be guaranteed due parallel runs
+          equal(5, scriptsRead.length);
+          finished();
+        }
+      });
+
+      script.run({testGlobal: i});
+    }
+
+  });
+
   it('should run scripts on non blocking instances', function (finished) {
     var pool = new Pool({numberOfInstances: 2});
     var exited = false;
