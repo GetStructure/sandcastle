@@ -28,7 +28,7 @@
     "debug": "^3.1.0",
     "yargs": "^10.0.3",
     "mongodb-extended-json": "^1.10.0",
-    "mmap-object": "1.4.1"
+    "mmap-object": "^1.4.1"
   },
   "devDependencies": {
     "async": "^2.5.0",
